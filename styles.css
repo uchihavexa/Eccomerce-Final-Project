@@ -506,11 +506,19 @@ select {
     flex-wrap: wrap;
     border-radius: var(--radius-md);
     gap: 0.35rem;
+    background: transparent;
   }
 
   .page-btn {
-    flex: 1 0 calc(33% - 0.4rem);
-    min-width: 60px;
+    flex: 0 0 calc(33% - 0.4rem);
+    min-width: 52px;
+    border: 1px solid rgba(0, 173, 181, 0.3);
+    background: #eef9fa;
+  }
+
+  .page-btn.active {
+    background: var(--clr-accent);
+    color: #fff;
   }
 }
 
