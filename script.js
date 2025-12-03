@@ -8,6 +8,7 @@ const STORAGE_KEYS = {
   theme: "store_theme",
   filters: "store_filters",
   wishlist: "store_wishlist",
+  pagination: "store_page",
 };
 
 let products = [];
@@ -195,6 +196,7 @@ function initGlobalListeners() {
 
     renderProducts();
     renderPagination();
+    savePagination();
 
     document
       .getElementById("store")
@@ -314,7 +316,7 @@ async function fetchAndRenderProducts() {
 
     buildCategoryOptions(products);
     restoreFilters();
-    applyFilters();
+    applyFilters(true);
     buildFeaturedSlider(products);
     renderWishlist(); // initialize after products loaded
   } catch (error) {
@@ -360,7 +362,7 @@ function getCurrentFilters() {
   };
 }
 
-function applyFilters() {
+function applyFilters(preservePage = false) {
   const { search, category, sortBy } = getCurrentFilters();
   saveFilters();
 
@@ -394,9 +396,16 @@ function applyFilters() {
   }
 
   filteredProducts = result;
-  currentPage = 1;
+  const maxPage = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
+  if (preservePage) {
+    const savedPage = getSavedPage();
+    currentPage = Math.min(savedPage, maxPage);
+  } else {
+    currentPage = 1;
+  }
   renderProducts();
   renderPagination();
+  savePagination();
 }
 
 function resetFilters() {
@@ -427,6 +436,16 @@ function restoreFilters() {
   } catch {
     // ignore malformed data
   }
+}
+
+function getSavedPage() {
+  const value = Number(localStorage.getItem(STORAGE_KEYS.pagination));
+  if (!Number.isFinite(value) || value < 1) return 1;
+  return Math.floor(value);
+}
+
+function savePagination(page = currentPage) {
+  localStorage.setItem(STORAGE_KEYS.pagination, String(page));
 }
 
 // ===============================
@@ -543,6 +562,7 @@ function renderProducts() {
     });
   });
 
+  savePagination();
   refreshAnimations();
 }
 
@@ -563,7 +583,10 @@ function renderPagination() {
     currentPage === 1 ? "disabled" : ""
   }>Prev</button>`;
 
-  for (let p = 1; p <= maxPage; p++) {
+  const visibleStart = Math.max(1, Math.min(currentPage - 1, maxPage - 2));
+  const visibleEnd = Math.min(maxPage, visibleStart + 2);
+
+  for (let p = visibleStart; p <= visibleEnd; p++) {
     html += `<button class="page-btn ${
       p === currentPage ? "active" : ""
     }" data-page="${p}">${p}</button>`;
