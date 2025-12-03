@@ -46,6 +46,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -339,6 +340,7 @@ select {
   margin-top: -70px;
   z-index: 2;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .hero-divider::before,
@@ -428,6 +430,7 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  overflow: hidden;
 }
 
 .hero-overlay h2 {
@@ -447,6 +450,44 @@ select {
 
 .hero-swiper .swiper-pagination-bullet {
   background: rgba(238, 238, 238, 0.7);
+}
+
+@media (max-width: 640px) {
+  .hero-text-overlay {
+    padding: 2rem 1rem;
+    align-items: flex-end;
+    text-align: center;
+  }
+
+  .hero-overlay {
+    padding: 1.5rem;
+    justify-content: flex-end;
+  }
+
+  .hero-overlay h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-overlay p {
+    font-size: 0.85rem;
+    max-width: 100%;
+  }
+
+  .hero .btn.btn-primary {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.8rem;
+  }
+
+  .hero {
+    padding-bottom: 2.2rem;
+  }
+
+  .hero-divider {
+    height: 70px;
+    margin-top: -45px;
+  }
 }
 
 /* =========================
