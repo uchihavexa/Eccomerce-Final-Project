@@ -452,6 +452,11 @@ select {
   background: rgba(238, 238, 238, 0.7);
 }
 
+.hero-swiper .swiper-button-prev::after,
+.hero-swiper .swiper-button-next::after {
+  font-size: 1.2rem;
+}
+
 @media (max-width: 640px) {
   .hero-text-overlay {
     padding: 2rem 1rem;
@@ -487,6 +492,12 @@ select {
   .hero-divider {
     height: 70px;
     margin-top: -45px;
+  }
+
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    opacity: 1;
+    visibility: visible;
   }
 }
 
