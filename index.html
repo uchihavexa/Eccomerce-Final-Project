@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaStore – Modern JS Store</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <!-- AOS Animations CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- HEADER + NAVBAR -->
+    <header class="site-header">
+      <div class="container header-content">
+        <a href="#" class="logo">
+          <span class="logo-mark"
+            ><i class="fa-solid fa-bag-shopping"></i
+          ></span>
+          <span class="logo-text">NovaStore</span>
+        </a>
+
+        <nav class="navbar">
+          <a href="#store" class="nav-link">Store</a>
+          <a href="#featured" class="nav-link">Featured</a>
+          <a href="#about" class="nav-link">About</a>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            id="theme-toggle"
+            class="icon-button"
+            aria-label="Toggle theme"
+          >
+            <span class="theme-icon"><i class="fa-solid fa-moon"></i></span>
+          </button>
+
+          <button
+            id="wishlist-toggle"
+            class="icon-button badge-button"
+            aria-label="Open wishlist"
+          >
+            <i class="fa-regular fa-heart"></i>
+            <span id="wishlist-count" class="badge-count">0</span>
+          </button>
+
+          <button id="cart-toggle" class="cart-button" aria-label="Open cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="cart-count">0</span>
+          </button>
+
+          <button
+            id="mobile-menu-btn"
+            class="mobile-menu-btn"
+            aria-label="Open menu"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- HERO + IMAGE SLIDER -->
+      <section class="hero">
+        <div class="hero-swiper-wrapper">
+          <div class="hero-text-overlay">
+            <div class="container">
+              <div class="hero-text">
+                <h1>Modern store UI with pure JavaScript.</h1>
+                <p>
+                  Browse electronics, fashion and gadgets powered by a live API,
+                  with cart, wishlist, filters, pagination, quick view and dark
+                  mode.
+                </p>
+                <a href="#store" class="btn btn-primary">Start shopping</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper hero-swiper">
+            <div class="swiper-wrapper">
+              <!-- Slide 1: Electronics -->
+              <div
+                class="swiper-slide hero-slide"
+                style="
+                  background-image: url('https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg?auto=compress&cs=tinysrgb&w=1600');
+                "
+              >
+                <div class="hero-overlay">
+                  <h2>Electronics & Laptops</h2>
+                  <p>Premium setups for work, gaming and creativity.</p>
+                </div>
+              </div>
+
+              <!-- Slide 2: Fashion -->
+              <div
+                class="swiper-slide hero-slide"
+                style="
+                  background-image: url('https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg?auto=compress&cs=tinysrgb&w=1600');
+                "
+              >
+                <div class="hero-overlay">
+                  <h2>Clothes & Fashion</h2>
+                  <p>Trending outfits and stylish accessories.</p>
+                </div>
+              </div>
+
+              <!-- Slide 3: Gadgets -->
+              <div
+                class="swiper-slide hero-slide"
+                style="
+                  background-image: url('https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1600');
+                "
+              >
+                <div class="hero-overlay">
+                  <h2>Mobile & Gadgets</h2>
+                  <p>Smartphones, wearables, headphones and more.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="hero-divider" aria-hidden="true"></div>
+
+      <!-- MOBILE NAV -->
+      <nav id="mobile-nav" class="mobile-nav">
+        <button
+          id="mobile-nav-close"
+          class="mobile-nav-close"
+          aria-label="Close menu"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="#store" class="mobile-nav-link">Store</a>
+        <a href="#featured" class="mobile-nav-link">Featured</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+      </nav>
+      <div id="mobile-backdrop" class="mobile-backdrop"></div>
+    </header>
+
+    <section class="flash-sale-banner" aria-label="Flash sale">
+      <div class="container flash-sale-inner">
+        <div class="flash-sale-text">
+          <span class="flash-sale-pill">Flash Deal</span>
+          <h2>Weekend Mega Sale</h2>
+          <p>Save up to 35% on electronics, fashion and accessories.</p>
+        </div>
+        <div class="flash-sale-countdown" aria-live="polite">
+          <div class="countdown-box">
+            <span class="count-value" id="flash-days">00</span>
+            <span class="count-label">Days</span>
+          </div>
+          <div class="countdown-box">
+            <span class="count-value" id="flash-hours">00</span>
+            <span class="count-label">Hours</span>
+          </div>
+          <div class="countdown-box">
+            <span class="count-value" id="flash-minutes">00</span>
+            <span class="count-label">Minutes</span>
+          </div>
+          <div class="countdown-box">
+            <span class="count-value" id="flash-seconds">00</span>
+            <span class="count-label">Seconds</span>
+          </div>
+        </div>
+        <a href="#store" class="btn btn-primary flash-sale-cta">Shop deals</a>
+      </div>
+    </section>
+
+    <main>
+      <!-- STORE SECTION -->
+      <section id="store" class="store-section">
+        <div class="container">
+          <!-- FILTERS / TOOLBAR -->
+          <div class="toolbar">
+            <div class="toolbar-group">
+              <label class="field">
+                <span class="field-label">Search</span>
+                <input
+                  type="search"
+                  id="search-input"
+                  placeholder="Search products..."
+                />
+              </label>
+
+              <label class="field">
+                <span class="field-label">Category</span>
+                <select id="category-filter">
+                  <option value="all">All categories</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Sort by</span>
+                <select id="sort-select">
+                  <option value="default">Default</option>
+                  <option value="price-asc">Price: Low → High</option>
+                  <option value="price-desc">Price: High → Low</option>
+                  <option value="rating-desc">Rating: High → Low</option>
+                </select>
+              </label>
+            </div>
+
+            <button id="clear-filters-btn" class="btn btn-ghost">
+              Reset filters
+            </button>
+          </div>
+
+          <!-- LOADER -->
+          <div id="loader" class="loader hidden">Loading products...</div>
+
+          <!-- PRODUCT GRID -->
+          <div id="products-grid" class="products-grid"></div>
+
+          <!-- PAGINATION -->
+          <div id="pagination" class="pagination"></div>
+        </div>
+      </section>
+
+      <!-- FEATURED PRODUCTS SLIDER (FROM API) -->
+      <section id="featured" class="featured-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Top rated picks</h2>
+            <p>Automatically selected from the DummyJSON API.</p>
+          </div>
+
+          <div class="swiper featured-swiper">
+            <div class="swiper-wrapper" id="featured-slider-wrapper">
+              <!-- Filled dynamically -->
+            </div>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <h2>About this project</h2>
+          <p>
+            NovaStore is a design-first storefront demo showing how much polish
+            you can deliver with modern browser APIs. Every interaction—from the
+            hero sliders and quick-view modals to the inventory-aware cart and
+            wishlist—is powered by vanilla JavaScript, live DummyJSON data and
+            LocalStorage persistence. It focuses on delightful UX details such
+            as responsive layouts, dark mode, tactile notifications and keyboard
+            friendly panels, making it a perfect sandbox for experimenting with
+            micro-interactions and e-commerce flows.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- CART SIDEBAR -->
+    <aside id="cart-panel" class="cart-panel">
+      <div class="cart-header">
+        <h2>Your cart</h2>
+        <button id="cart-close-btn" class="icon-button" aria-label="Close cart">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="cart-items" class="cart-items"></div>
+
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Total:</span>
+          <span id="cart-total" class="cart-total-amount">$0.00</span>
+        </div>
+
+        <button id="clear-cart-btn" class="btn btn-ghost">Clear cart</button>
+        <button id="checkout-btn" class="btn btn-primary">Checkout</button>
+      </div>
+    </aside>
+
+    <!-- CART BACKDROP -->
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- WISHLIST SIDEBAR -->
+    <aside id="wishlist-panel" class="cart-panel">
+      <div class="cart-header">
+        <h2>Your favorites</h2>
+        <button
+          id="wishlist-close-btn"
+          class="icon-button"
+          aria-label="Close wishlist"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="wishlist-items" class="cart-items"></div>
+    </aside>
+
+    <!-- WISHLIST BACKDROP -->
+    <div id="wishlist-backdrop" class="cart-backdrop"></div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div id="quickview-backdrop" class="quickview-backdrop"></div>
+
+    <div id="quickview-modal" class="quickview-modal">
+      <div class="quickview-content">
+        <button
+          id="quickview-close"
+          class="quickview-close"
+          aria-label="Close quick view"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="quickview-left">
+          <img
+            id="quickview-main-img"
+            class="quickview-main-img"
+            src=""
+            alt="Product image"
+          />
+          <div id="quickview-thumbs" class="quickview-thumbs"></div>
+        </div>
+
+        <div class="quickview-right">
+          <h2 id="quickview-title"></h2>
+          <p id="quickview-category" class="quickview-category"></p>
+          <p id="quickview-desc" class="quickview-desc"></p>
+
+          <div class="quickview-meta">
+            <span id="quickview-price" class="quickview-price"></span>
+            <span id="quickview-rating"></span>
+            <span id="quickview-stock" class="quickview-stock"></span>
+          </div>
+
+          <div class="quickview-actions">
+            <button id="quickview-addcart" class="btn btn-primary">
+              <i class="fa-solid fa-cart-plus"></i> Add to Cart
+            </button>
+
+            <button id="quickview-fav" class="btn btn-ghost">
+              <i class="fa-regular fa-heart"></i> Favorite
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>© 2025 NovaStore. Built with HTML, CSS & JavaScript.</p>
+        <div class="footer-links">
+          <a href="#store">Store</a>
+          <a href="#featured">Featured</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- AOS Animations JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Notifications -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Main JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
